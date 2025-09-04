@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import Botao from './src/components/Botao';
+import Header from './src/components/Header';
 
 export default function App() {
 
@@ -9,23 +11,9 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.titulo}>{ titulo }</Text>
-      <Text style={styles.subtitulo}>Contagem atual: {contar}</Text>
-      <TouchableOpacity
-        style={[styles.btn, styles.btnSomar]}
-        onPress={ () => setContar(contar + 1)}
-      >
-        <Text style={styles.btnTexto}>Adicionar</Text>
-      </TouchableOpacity>
-      { contar != 0 &&(
-        <TouchableOpacity
-          style={[styles.btn, styles.btnSubtrair]}
-          onPress={ () => setContar(contar - 1)}
-          
-        >
-          <Text style={styles.btnTexto}>Subtrair</Text>
-        </TouchableOpacity>
-      )}
+      <Header titulo={titulo} subtitulo={contar} />
+      <Botao valor={contar} func={setContar} operacao="incrementar" />
+      { contar > 0 && <Botao valor={contar} func={setContar} operacao="decrementar" /> }
     </View>
   );
 }
@@ -37,40 +25,5 @@ const styles = StyleSheet.create({
     marginBottom: 50,
     alignItems: 'center',
     backgroundColor: 'lightgray'
-  },
-  titulo: {
-    fontSize: 35,
-    fontWeight: 'bold',
-    color: 'black',
-    textDecorationLine: 'underline',
-    marginTop: 15,
-  },
-  subtitulo: {
-    fontSize: 25,
-    fontWeight: 'bold',
-    color: 'white',
-    marginTop: 15,
-    marginBottom: 30
-  },
-  btn: {
-    width: 200,
-    alignItems: 'center',
-    padding: 10,
-    borderWidth: 2,
-    borderRadius: 20,
-    margin: 10
-  },
-  btnSomar: {
-    backgroundColor: '#08c7e99b',
-    borderColor: 'white',
-  },
-  btnSubtrair: {
-    backgroundColor: '#e908089b',
-    borderColor: 'black',
-  },
-  btnTexto: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#ffffff',
   }
 });
